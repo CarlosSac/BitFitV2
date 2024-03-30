@@ -4,7 +4,7 @@ Submitted by: **Carlos Sac**
 
 **Name of your app** is a health metrics app that allows users to track ... [Nutrition / Calories] 
 
-Time spent: **8** hours spent in total
+Time spent: **8.5** hours spent in total
 
 ## Required Features
 
