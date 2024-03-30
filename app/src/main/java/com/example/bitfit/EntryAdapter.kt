@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 class EntryAdapter(private val context: Context, private val entries: List<DisplayEntry>) :
     RecyclerView.Adapter<EntryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.entry_detail, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.entries_item, parent, false)
         return ViewHolder(view)
     }
 

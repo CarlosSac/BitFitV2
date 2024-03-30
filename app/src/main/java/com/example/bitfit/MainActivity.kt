@@ -2,6 +2,7 @@ package com.example.bitfit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,9 +24,13 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+
+
         itemAdapter = findViewById(R.id.entries)
         val itemDisplay = EntryAdapter(this, entries)
         itemAdapter.adapter = itemDisplay
+
+
 
         itemAdapter.layoutManager = LinearLayoutManager(this).also {
             val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
@@ -41,17 +47,23 @@ class MainActivity : AppCompatActivity() {
 
                     )
                 }.also { mappedList ->
-//                    notesRecyclerView.adapter = NoteDisplayAdapter(this@MainActivity, mappedList)
                     entries.addAll(mappedList)
-                    itemDisplay.notifyDataSetChanged()
+                    launch(Dispatchers.Main) {
+                        Log.d("test","update")
+                        itemDisplay.notifyDataSetChanged()
+                    }
                 }
+
+
             }
         }
+
+
 
         val button = findViewById<Button>(R.id.itemBttn)
         button.setOnClickListener{
             val intent = Intent(this, DataAcivity::class.java)
-            this.startActivity(intent)
+            startActivity(intent)
         }
 
     }
