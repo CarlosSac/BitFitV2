@@ -18,4 +18,7 @@ interface EntryDao {
 
     @Query("DELETE FROM entry_table")
     fun deleteAll()
+
+    @Query("SELECT calories FROM entry_table")
+    fun getCalories():List<String>
 }

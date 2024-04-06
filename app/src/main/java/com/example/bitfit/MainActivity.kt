@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        itemAdapter = findViewById(R.id.entries)
+        itemAdapter = findViewById(R.id.entriesRV)
         val itemDisplay = EntryAdapter(this, entries)
         itemAdapter.adapter = itemDisplay
 
