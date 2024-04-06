@@ -39,7 +39,7 @@ class DataAcivity : AppCompatActivity() {
                 )
             }
 
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this@DataAcivity, MainActivity::class.java)
             this.startActivity(intent)
         }
 

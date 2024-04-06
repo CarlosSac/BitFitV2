@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Byte
 
 class DashboardFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +38,8 @@ class DashboardFragment : Fragment() {
         var sum = 0
         var avg = 0
 
-        var minVal: Int = Int.MIN_VALUE
-        var maxVal: Int = Int.MAX_VALUE
+        var minVal: Int = Byte.MAX_VALUE.toInt()
+        var maxVal: Int = Byte.MIN_VALUE.toInt()
 
         lifecycleScope.launch(Dispatchers.IO) {
             for (item in (activity?.application as EntryApplication).db.articleDao().getCalories()) {
@@ -62,9 +63,4 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    companion object {
-        fun newInstance(): DashboardFragment {
-            return DashboardFragment()
-        }
-    }
 }

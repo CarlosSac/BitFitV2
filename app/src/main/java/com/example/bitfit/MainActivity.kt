@@ -1,70 +1,50 @@
 package com.example.bitfit
 
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import androidx.activity.enableEdgeToEdge
+
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import com.example.bitfit.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var itemAdapter: RecyclerView
-    private val entries = mutableListOf<DisplayEntry>()
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
+        val logFragment: Fragment = LogFragment()
+        val dashboardFragment: Fragment = DashboardFragment()
 
-
-        itemAdapter = findViewById(R.id.entriesRV)
-        val itemDisplay = EntryAdapter(this, entries)
-        itemAdapter.adapter = itemDisplay
-
-
-
-        itemAdapter.layoutManager = LinearLayoutManager(this).also {
-            val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
-            itemAdapter.addItemDecoration(dividerItemDecoration)
-        }
-
-
-        lifecycleScope.launch (Dispatchers.IO) {
-            (application as EntryApplication).db.articleDao().getAll().collect { databaseList ->
-                databaseList.map { entity ->
-                    DisplayEntry(
-                        entity.item,
-                        entity.calories,
-
-                    )
-                }.also { mappedList ->
-                    entries.addAll(mappedList)
-                    launch(Dispatchers.Main) {
-                        Log.d("test","update")
-                        itemDisplay.notifyDataSetChanged()
-                    }
-                }
-
-
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.setOnItemSelectedListener{ item ->
+            lateinit var fragment: Fragment
+            when (item.itemId) {
+                R.id.nav_log-> fragment = logFragment
+                R.id.nav_dashboard -> fragment = dashboardFragment
             }
+            replaceFragment(fragment)
+            true
         }
 
+        // Set default selection
+        bottomNavigationView.selectedItemId = R.id.nav_log
 
 
-        val button = findViewById<Button>(R.id.itemBttn)
-        button.setOnClickListener{
-            val intent = Intent(this, DataAcivity::class.java)
-            startActivity(intent)
-        }
 
+
+    }
+
+    private fun replaceFragment(articleListFragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.article_frame_layout, articleListFragment)
+        fragmentTransaction.commit()
     }
 }

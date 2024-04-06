@@ -48,6 +48,29 @@ class LogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+            lifecycleScope.launch(Dispatchers.IO) {
+                (requireActivity().application as EntryApplication).db.articleDao().getAll()
+                    .collect { databaseList ->
+                        entries.clear()
+                        databaseList.map { entity ->
+                            DisplayEntry(
+                                entity.item,
+                                entity.calories,
+
+                                )
+                        }.also { mappedList ->
+                            entries.addAll(mappedList)
+                            launch(Dispatchers.Main) {
+                                Log.d("test", "update")
+
+                                itemDisplay.notifyDataSetChanged()
+
+                            }
+                        }
+
+
+                    }
+            }
 
 
 

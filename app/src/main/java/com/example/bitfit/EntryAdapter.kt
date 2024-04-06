@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class EntryAdapter(private val context: Context, private val entries: List<DisplayEntry>) :
     RecyclerView.Adapter<EntryAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.entries_item, parent, false)
         return ViewHolder(view)
@@ -27,6 +28,7 @@ class EntryAdapter(private val context: Context, private val entries: List<Displ
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
+
 
         private val itemTv = itemView.findViewById<TextView>(R.id.entryTv)
         private val numberTv = itemView.findViewById<TextView>(R.id.numberTv)
