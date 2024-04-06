@@ -27,7 +27,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src=demo_2.gif title='Video Walkthrough' width='350' alt='Video Walkthrough' />
+<img src=demo_2.gif title='Video Walkthrough' width='300' alt='Video Walkthrough' />
 
 GIF created with [Kap](https://getkap.co/) for macOS
 
